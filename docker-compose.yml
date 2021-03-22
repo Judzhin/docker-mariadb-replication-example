@@ -8,6 +8,8 @@ services:
       context: .
       target: ${APP_ENV}
       dockerfile: .docker/mariadb/Dockerfile
+      args:
+        APP_ENV: ${APP_ENV}
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
@@ -15,6 +17,7 @@ services:
     ports:
       - ${MYSQL_PORT}:3306
     volumes:
+      - ./var/log/mysql:/var/log/mysql
       - dmre-mariadb:/var/lib/mysql
 
   pma:
