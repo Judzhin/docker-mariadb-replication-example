@@ -19,7 +19,6 @@ services:
       - ${MYSQL_PORT_MASTER:-33060}:3306
     volumes:
       - ./.docker/mariadb/master.cnf:/etc/mysql/mariadb.conf.d/repl.cnf
-      - ./.docker/mariadb/data/:/docker-entrypoint-initdb.d/:ro
       - ./var/log/mysql:/var/log/mysql
       - dmre-mariadb-master:/var/lib/mysql
 
@@ -50,7 +49,6 @@ services:
       - ${MYSQL_PORT_SLAVE:-33061}:3306
     volumes:
       - ./.docker/mariadb/slave.cnf:/etc/mysql/mariadb.conf.d/repl.cnf
-      - ./.docker/mariadb/data/:/docker-entrypoint-initdb.d/:ro
       - ./var/log/mysql:/var/log/mysql
       - dmre-mariadb-slave:/var/lib/mysql
     depends_on:

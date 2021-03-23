@@ -4,7 +4,7 @@ ARG APP_ENV
 ENV APP_ENV=${APP_ENV}
 
 COPY .docker/mariadb/my_${APP_ENV}.cnf /etc/mysql/conf.d/my.cnf
-ADD .docker/mariadb/data/dump.sql /docker-entrypoint-initdb.d
+ADD .docker/mariadb/data/dump.sql /docker-entrypoint-initdb.d/dump.sql
 RUN apt-get update && apt-get install -y
 
 # DEV env (local)
