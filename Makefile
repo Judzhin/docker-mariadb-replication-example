@@ -64,6 +64,9 @@ restart: ## Stop and start containers
 	@make -s stop
 	@make -s start
 
+logs: ##
+	@docker-compose logs --tail=100 -f $(c)
+
 push: ## Pushing image to hub
 	$(info Make: Pushing "$(TAG)" tagged image.)
 	@docker push $(IMAGE):$(TAG)
