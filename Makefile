@@ -39,6 +39,10 @@ start: ## Builds, (re)creates, starts, and attaches to containers for a service 
 	$(info Make: Starting "$(ENV)" environment containers.)
 	@TAG=$(TAG) docker-compose $(COMPOSE_FILE_PATH) up -d
 
+ps: ## Show information about running containers
+	$(info Make: Starting "$(ENV)" environment containers.)
+	@TAG=$(TAG) docker-compose $(COMPOSE_FILE_PATH) ps
+
 stop: ## Stop running containers without removing them
 	$(info Make: Stopping "$(ENV)" environment containers.)
 	@docker-compose stop
@@ -74,3 +78,11 @@ clean: ## Remove unused data without prompt for confirmation
 login: ## Login to Docker Hub.
 	$(info Make: Login to Docker Hub.)
 	@docker login -u $(DOCKER_USER) -p $(DOCKER_PASS)
+
+master: ## Login to Docker Hub.
+	$(info Make: Login to Master Mariadb Container.)
+	@docker-compose exec mariadb-master mysql -uroot -proot
+
+slave: ## Login to Docker Hub.
+	$(info Make: Login to Master Mariadb Container.)
+	@docker-compose exec mariadb-slave mysql -uroot -proot

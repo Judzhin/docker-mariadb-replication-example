@@ -1,0 +1,1 @@
+CHANGE MASTER TO MASTER_HOST='mariadb-master', MASTER_USER='root.slave', MASTER_PASSWORD='root.password';

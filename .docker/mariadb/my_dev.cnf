@@ -14,20 +14,3 @@
 # --print-defaults to see which it would actually understand and use.
 #
 # If you are new to MariaDB, check out https://mariadb.com/kb/en/basic-mariadb-articles/
-
-###> master/localhost ###
-server-id = 1
-# путь к бинарному логу
-log_bin = /var/log/mysql/mysql-bin.log
-# название Вашей базы данных, которая будет реплицироваться
-binlog_do_db = master.example
-###< master ###
-
-###> slave/localhost ###
-server-id = 2
-# Путь к relay логу
-relay-log = /var/log/mysql/mysql-relay-bin.log
-# Путь к bin логу на Мастере
-log_bin = /var/log/mysql/mysql-bin.log
-# База данных для репликации
-binlog_do_db = slave.example
