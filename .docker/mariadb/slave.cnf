@@ -1,12 +1,6 @@
 [mysqld]
-server-id=2
-relay-log=/var/log/mysql/mysql-relay-bin.log
-log_bin=/var/log/mysql/mysql-bin.log
-#binlog_do_db=docker.example
-
-#read_only=1
-#expire_logs_days=7
-#slave_load_tmpdir=/var/local/mysql
+log_bin
+server_id=2
+log-basename=slave_replication
 replicate-do-db=docker.example
 replicate-do-table=docker.example.users
-report-host=mariadb-master

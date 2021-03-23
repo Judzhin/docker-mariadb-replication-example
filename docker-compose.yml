@@ -2,6 +2,35 @@ version: '3.5'
 
 services:
 
+  mysql-master:
+    container_name: docker-mysql-replication-master-${APP_ENV:-dev}
+    build:
+      context: .
+      target: ${APP_ENV:-dev}
+      dockerfile: .docker/mysql/Dockerfile
+      args:
+        APP_ENV: ${APP_ENV:-dev}
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-docker.example}
+      MYSQL_USER: ${MYSQL_USER:-root}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-root}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+    ports:
+      - ${MYSQL_PORT_MASTER:-33059}:3306
+    volumes:
+      - ./.docker/mariadb/master.cnf:/etc/mysql/mariadb.conf.d/repl.cnf
+      - ./var/log/mysql:/var/log/mysql
+      - dmre-mysqldb-master:/var/lib/mysql:rw
+
+  adminer-master:
+    image: adminer:latest
+    environment:
+      ADMINER_DEFAULT_SERVER: ${ADMINER_SERVER_MASTER:-mysql-master}
+    ports:
+      - ${ADMINER_PORT_MASTER:-7979}:8080
+    depends_on:
+      - mysql-master
+
   mariadb-master:
     container_name: docker-mariadb-replication-master-${APP_ENV:-dev}
     build:
@@ -20,7 +49,7 @@ services:
     volumes:
       - ./.docker/mariadb/master.cnf:/etc/mysql/mariadb.conf.d/repl.cnf
       - ./var/log/mysql:/var/log/mysql
-      - dmre-mariadb-master:/var/lib/mysql
+      - dmre-mariadb-master:/var/lib/mysql:rw
 
   pma-master:
     image: phpmyadmin/phpmyadmin:latest
@@ -50,7 +79,7 @@ services:
     volumes:
       - ./.docker/mariadb/slave.cnf:/etc/mysql/mariadb.conf.d/repl.cnf
       - ./var/log/mysql:/var/log/mysql
-      - dmre-mariadb-slave:/var/lib/mysql
+      - dmre-mariadb-slave:/var/lib/mysql:rw
     depends_on:
       - mariadb-master
 
@@ -66,4 +95,5 @@ services:
 
 volumes:
   dmre-mariadb-master:
+  dmre-mysqldb-master:
   dmre-mariadb-slave:

@@ -1,10 +1,4 @@
 [mysqld]
-server-id=1
-log_bin=/var/log/mysql/mysql-bin.log
-binlog_do_db=docker.example
-
-#replicate-do-db=docker.example
-#binlog_format=row
-#log-basename=master
-#expire_logs_days = 10
-#max_binlog_size = 900M
+log_bin
+server_id=1
+log-basename=master_replication
