@@ -2,3 +2,7 @@
 log_bin
 server_id=1
 log-basename=master_replication
+binlog_ignore_db=information_schema,mysql,performance_schema
+replicate-do-db=master.example,slave.example
+replicate-do-table=master.example.users
+replicate-do-table=master.example.employees

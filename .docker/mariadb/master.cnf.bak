@@ -1,0 +1,31 @@
+;[mysqld1]
+;log_bin
+;replicate-same-server-id=1
+;server_id=1
+;log-basename=master_replication
+;replicate-do-db=docker.example
+;replicate-do-table=slave.example.users
+;replicate-do-table=slave.example.employees
+;binlog_ignore_db=information_schema
+;binlog_ignore_db=mysql
+;binlog_ignore_db=performance_schema
+
+;[mysqld2]
+;log_bin
+;replicate-same-server-id=2
+;server_id=2
+;log-basename=master_slave_replication
+;replicate-do-db=slave.example
+;replicate-do-table=docker.example.users
+;replicate-do-table=docker.example.employees
+
+[mysql]
+; идентификатор сервера, для каждой ноды кластера должен быть свой.
+server_id = 1
+log_bin
+log_error = mysql-bin.err
+log-basename=master_replication
+binlog_ignore_db = information_schema,mysql,test
+replicate-do-db = docker.example,slave.example
+replicate-do-table=docker.example.users
+replicate-do-table=docker.example.employees

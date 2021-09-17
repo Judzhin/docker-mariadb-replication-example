@@ -4,7 +4,7 @@ GRANT REPLICATION SLAVE ON *.* TO 'root_slave'@'%' REQUIRE NONE WITH GRANT OPTIO
 FLUSH PRIVILEGES;
 
 # Далее блокируем все таблицы в нашей базе данных:
-USE docker.example;
+USE master.example;
 FLUSH TABLES WITH READ LOCK;
 
 # Проверяем статус Мастер-сервера:

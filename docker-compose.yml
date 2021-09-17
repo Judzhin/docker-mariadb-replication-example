@@ -11,7 +11,7 @@ services:
       args:
         APP_ENV: ${APP_ENV:-dev}
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-docker.example}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-master.example}
       MYSQL_USER: ${MYSQL_USER:-root}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-root}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
@@ -19,6 +19,7 @@ services:
       - ${MYSQL_PORT_MASTER:-33059}:3306
     volumes:
       - ./.docker/mariadb/master.cnf:/etc/mysql/mariadb.conf.d/repl.cnf
+      - ./.docker/mariadb/inner.cnf:/etc/mysql/mariadb.conf.d/inner.cnf
       - ./var/log/mysql:/var/log/mysql
       - dmre-mysqldb-master:/var/lib/mysql:rw
 
@@ -40,7 +41,7 @@ services:
       args:
         APP_ENV: ${APP_ENV:-dev}
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-docker.example}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-master.example}
       MYSQL_USER: ${MYSQL_USER:-root}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-root}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
@@ -70,7 +71,7 @@ services:
       args:
         APP_ENV: ${APP_ENV:-dev}
     environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-docker.example}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-master.example}
       MYSQL_USER: ${MYSQL_USER:-root}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-root}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}

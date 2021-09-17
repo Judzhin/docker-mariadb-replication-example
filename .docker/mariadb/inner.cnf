@@ -1,7 +1,8 @@
 [mysqld]
 log_bin
 server_id=2
-log-basename=slave_replication
+log-basename=master_replication
+binlog_ignore_db=information_schema,mysql,performance_schema
 replicate-do-db=slave.example
 replicate-do-table=slave.example.users
 replicate-do-table=slave.example.employees
